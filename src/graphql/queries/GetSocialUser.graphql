@@ -1,0 +1,11 @@
+query GetSocialUser($slug: String!) {
+  socialUser(where: { slug: $slug }) {
+    name
+    imageUrl
+    email
+    socialLinks {
+      link
+      texto
+    }
+  }
+}

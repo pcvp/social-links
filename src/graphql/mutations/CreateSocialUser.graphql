@@ -1,0 +1,19 @@
+mutation CreateSocialUser(
+  $nome: String!
+  $userName: String!
+  $email: String!
+  $imageUrl: String!
+  $slug: String!
+) {
+  createSocialUser(
+    data: {
+      name: $nome
+      userName: $userName
+      email: $email
+      imageUrl: $imageUrl
+      slug: $slug
+    }
+  ) {
+    id
+  }
+}
