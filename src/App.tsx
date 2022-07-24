@@ -1,7 +1,18 @@
+import { ApolloProvider } from "@apollo/client";
+import { BrowserRouter } from "react-router-dom";
+import { Router } from "./router";
+import { client } from "./lib/apollo";
+
 import "./styles/global.css";
 
 function App() {
-  return <h1 className="text-5xl"> Social Links</h1>;
+  return (
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </ApolloProvider>
+  );
 }
 
 export default App;

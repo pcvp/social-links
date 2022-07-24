@@ -1,9 +1,10 @@
-query GetSocialUser($slug: String!) {
+query GetSocialUser($slug: String) {
   socialUser(where: { slug: $slug }) {
     name
     imageUrl
     email
     socialLinks {
+      id
       link
       texto
     }

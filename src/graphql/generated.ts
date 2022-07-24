@@ -4202,11 +4202,11 @@ export type CreateSocialUserMutationVariables = Exact<{
 export type CreateSocialUserMutation = { __typename?: 'Mutation', createSocialUser?: { __typename?: 'SocialUser', id: string } | null };
 
 export type GetSocialUserQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetSocialUserQuery = { __typename?: 'Query', socialUser?: { __typename?: 'SocialUser', name: string, imageUrl: string, email: string, socialLinks: Array<{ __typename?: 'SocialLink', link: string, texto: string }> } | null };
+export type GetSocialUserQuery = { __typename?: 'Query', socialUser?: { __typename?: 'SocialUser', name: string, imageUrl: string, email: string, socialLinks: Array<{ __typename?: 'SocialLink', id: string, link: string, texto: string }> } | null };
 
 
 export const CreateSocialUserDocument = gql`
@@ -4249,12 +4249,13 @@ export type CreateSocialUserMutationHookResult = ReturnType<typeof useCreateSoci
 export type CreateSocialUserMutationResult = Apollo.MutationResult<CreateSocialUserMutation>;
 export type CreateSocialUserMutationOptions = Apollo.BaseMutationOptions<CreateSocialUserMutation, CreateSocialUserMutationVariables>;
 export const GetSocialUserDocument = gql`
-    query GetSocialUser($slug: String!) {
+    query GetSocialUser($slug: String) {
   socialUser(where: {slug: $slug}) {
     name
     imageUrl
     email
     socialLinks {
+      id
       link
       texto
     }
@@ -4278,7 +4279,7 @@ export const GetSocialUserDocument = gql`
  *   },
  * });
  */
-export function useGetSocialUserQuery(baseOptions: Apollo.QueryHookOptions<GetSocialUserQuery, GetSocialUserQueryVariables>) {
+export function useGetSocialUserQuery(baseOptions?: Apollo.QueryHookOptions<GetSocialUserQuery, GetSocialUserQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetSocialUserQuery, GetSocialUserQueryVariables>(GetSocialUserDocument, options);
       }
