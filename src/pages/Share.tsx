@@ -12,25 +12,25 @@ export function Share() {
     },
   });
 
-  if (!data || !data.socialUser) {
-    return (
-      <div className="bg-gray-700 min-h-screen">
-        <Header />
-        <div className="flex-1 text-center p-10">
-          <p className="text-white"> Carregando...</p>
-        </div>
-      </div>
-    );
-  }
-
   if (data && !data.socialUser) {
     return (
       <div className="bg-gray-700 min-h-screen">
         <Header />
         <div className="flex-1 text-center p-10">
           <Link to="/" className="text-white">
-            Usuaário não encontrado, clique aqui para voltar para a Home
+            Usuário não encontrado, clique aqui para voltar para a Home
           </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || !data.socialUser) {
+    return (
+      <div className="bg-gray-700 min-h-screen">
+        <Header />
+        <div className="flex-1 text-center p-10">
+          <p className="text-white"> Carregando...</p>
         </div>
       </div>
     );
