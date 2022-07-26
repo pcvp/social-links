@@ -6,7 +6,7 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/share/:slug" element={<Share />} />
+      <Route path="/:slug" element={<Share />} />
     </Routes>
   );
 }
