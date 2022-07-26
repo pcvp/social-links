@@ -12,7 +12,7 @@ export function Share() {
     },
   });
 
-  if (!data) {
+  if (!data || !data.socialUser) {
     return (
       <div className="bg-gray-700 min-h-screen">
         <Header />
