@@ -1,28 +1,21 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Header } from "../components/Header";
 import { User } from "../components/User";
-import { useGetSocialUserBySlugQuery } from "../graphql/generated";
+import { useGetSocialUserByEmailQuery } from "../graphql/generated";
 
-export function Share() {
-  const { slug } = useParams<{ slug: string }>();
+export function Profile() {
+  const { user } = useAuth0();
 
-  const { data } = useGetSocialUserBySlugQuery({
+  const { data } = useGetSocialUserByEmailQuery({
     variables: {
-      slug: slug,
+      email: user?.email,
     },
   });
 
-  if (data && !data.socialUser) {
-    return (
-      <div className="bg-gray-700 min-h-screen">
-        <Header />
-        <div className="flex-1 text-center p-10">
-          <Link to="/" className="text-white">
-            Usuário não encontrado, clique aqui para voltar para a Home
-          </Link>
-        </div>
-      </div>
-    );
+  if (user && data && !data.socialUser) {
+    //TODO: Redirecionar para a criação de conta
+    const { logout } = useAuth0();
+    logout({ returnTo: window.location.origin });
   }
 
   if (!data || !data.socialUser) {

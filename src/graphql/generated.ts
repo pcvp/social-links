@@ -4201,12 +4201,19 @@ export type CreateSocialUserMutationVariables = Exact<{
 
 export type CreateSocialUserMutation = { __typename?: 'Mutation', createSocialUser?: { __typename?: 'SocialUser', id: string } | null };
 
-export type GetSocialUserQueryVariables = Exact<{
+export type GetSocialUserByEmailQueryVariables = Exact<{
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetSocialUserByEmailQuery = { __typename?: 'Query', socialUser?: { __typename?: 'SocialUser', name: string, imageUrl: string, email: string, socialLinks: Array<{ __typename?: 'SocialLink', id: string, link: string, texto: string }> } | null };
+
+export type GetSocialUserBySlugQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetSocialUserQuery = { __typename?: 'Query', socialUser?: { __typename?: 'SocialUser', name: string, imageUrl: string, email: string, socialLinks: Array<{ __typename?: 'SocialLink', id: string, link: string, texto: string }> } | null };
+export type GetSocialUserBySlugQuery = { __typename?: 'Query', socialUser?: { __typename?: 'SocialUser', name: string, imageUrl: string, email: string, socialLinks: Array<{ __typename?: 'SocialLink', id: string, link: string, texto: string }> } | null };
 
 
 export const CreateSocialUserDocument = gql`
@@ -4248,8 +4255,50 @@ export function useCreateSocialUserMutation(baseOptions?: Apollo.MutationHookOpt
 export type CreateSocialUserMutationHookResult = ReturnType<typeof useCreateSocialUserMutation>;
 export type CreateSocialUserMutationResult = Apollo.MutationResult<CreateSocialUserMutation>;
 export type CreateSocialUserMutationOptions = Apollo.BaseMutationOptions<CreateSocialUserMutation, CreateSocialUserMutationVariables>;
-export const GetSocialUserDocument = gql`
-    query GetSocialUser($slug: String) {
+export const GetSocialUserByEmailDocument = gql`
+    query GetSocialUserByEmail($email: String) {
+  socialUser(where: {email: $email}) {
+    name
+    imageUrl
+    email
+    socialLinks {
+      id
+      link
+      texto
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSocialUserByEmailQuery__
+ *
+ * To run a query within a React component, call `useGetSocialUserByEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSocialUserByEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSocialUserByEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useGetSocialUserByEmailQuery(baseOptions?: Apollo.QueryHookOptions<GetSocialUserByEmailQuery, GetSocialUserByEmailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSocialUserByEmailQuery, GetSocialUserByEmailQueryVariables>(GetSocialUserByEmailDocument, options);
+      }
+export function useGetSocialUserByEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSocialUserByEmailQuery, GetSocialUserByEmailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSocialUserByEmailQuery, GetSocialUserByEmailQueryVariables>(GetSocialUserByEmailDocument, options);
+        }
+export type GetSocialUserByEmailQueryHookResult = ReturnType<typeof useGetSocialUserByEmailQuery>;
+export type GetSocialUserByEmailLazyQueryHookResult = ReturnType<typeof useGetSocialUserByEmailLazyQuery>;
+export type GetSocialUserByEmailQueryResult = Apollo.QueryResult<GetSocialUserByEmailQuery, GetSocialUserByEmailQueryVariables>;
+export const GetSocialUserBySlugDocument = gql`
+    query GetSocialUserBySlug($slug: String) {
   socialUser(where: {slug: $slug}) {
     name
     imageUrl
@@ -4264,29 +4313,29 @@ export const GetSocialUserDocument = gql`
     `;
 
 /**
- * __useGetSocialUserQuery__
+ * __useGetSocialUserBySlugQuery__
  *
- * To run a query within a React component, call `useGetSocialUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetSocialUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetSocialUserBySlugQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSocialUserBySlugQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetSocialUserQuery({
+ * const { data, loading, error } = useGetSocialUserBySlugQuery({
  *   variables: {
  *      slug: // value for 'slug'
  *   },
  * });
  */
-export function useGetSocialUserQuery(baseOptions?: Apollo.QueryHookOptions<GetSocialUserQuery, GetSocialUserQueryVariables>) {
+export function useGetSocialUserBySlugQuery(baseOptions?: Apollo.QueryHookOptions<GetSocialUserBySlugQuery, GetSocialUserBySlugQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetSocialUserQuery, GetSocialUserQueryVariables>(GetSocialUserDocument, options);
+        return Apollo.useQuery<GetSocialUserBySlugQuery, GetSocialUserBySlugQueryVariables>(GetSocialUserBySlugDocument, options);
       }
-export function useGetSocialUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSocialUserQuery, GetSocialUserQueryVariables>) {
+export function useGetSocialUserBySlugLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSocialUserBySlugQuery, GetSocialUserBySlugQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetSocialUserQuery, GetSocialUserQueryVariables>(GetSocialUserDocument, options);
+          return Apollo.useLazyQuery<GetSocialUserBySlugQuery, GetSocialUserBySlugQueryVariables>(GetSocialUserBySlugDocument, options);
         }
-export type GetSocialUserQueryHookResult = ReturnType<typeof useGetSocialUserQuery>;
-export type GetSocialUserLazyQueryHookResult = ReturnType<typeof useGetSocialUserLazyQuery>;
-export type GetSocialUserQueryResult = Apollo.QueryResult<GetSocialUserQuery, GetSocialUserQueryVariables>;
+export type GetSocialUserBySlugQueryHookResult = ReturnType<typeof useGetSocialUserBySlugQuery>;
+export type GetSocialUserBySlugLazyQueryHookResult = ReturnType<typeof useGetSocialUserBySlugLazyQuery>;
+export type GetSocialUserBySlugQueryResult = Apollo.QueryResult<GetSocialUserBySlugQuery, GetSocialUserBySlugQueryVariables>;
